@@ -41,7 +41,7 @@
             <button type="button" id ="runLeft"class="btn btn-success" style="margin-top: 30px; ">RunLeft</button>
             <button type="button" id ="runRight"class="btn btn-success" style="margin-top: 30px; ">RunRight</button>
             <button type="button" id ="runBoth"class="btn btn-success" style="margin-top: 30px;  ">RunBothSide</button>
-            <button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>
+            <%--<button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>--%>
             <button type="button" id="stop" class="btn btn-warning" style="margin-top: 30px;">Stop</button>
         </div>
         <div class="col-md-10">
@@ -84,11 +84,14 @@
     var ctx = canvas1.getContext("2d");
     var startTime = Date.now();
     var x = 0;
+    var stopMark=0;
     var stopMarkL=0;
     var stopMarkR=0;
     var lPos = 0;
      var rPos =1000;
      var rate=0;
+     var gateMark=0;
+     var gatePosition=0;
     DrawSline(ctx);
     DrawDline(ctx);
     DrawShape(ctx);
@@ -96,80 +99,120 @@
 
     function drawL() {
 
+        drawTrain(ctx,0);
         stopMark=requestAnimFrame(drawL);
+        console.log(stopMark);
+        if((lPos%1000)==90)
+        {
+            drawGateClose();
+        }
 
-        drawStatic(ctx,0);
-
+        if((lPos%1000)==650)
+        {
+            drawGateOpen();
+        }
     }
     function drawR() {
-
+        drawTrain(ctx,1);
         stopMark=requestAnimFrame(drawR);
+        if((rPos%1000)==770)
+        {
+            drawGateClose();
+        }
 
-        drawStatic(ctx,1);
+        if((rPos%1000)==210)
+        {
+            drawGateOpen();
+        }
+    }
 
+    function drawGateOpen() {
+        ctx.clearRect(410, 255, 180, 10);
+        ctx.clearRect(410, 335, 180, 10);
+        gatePosition--;
+        ctx.fillStyle = "blue";
+        ctx.fillRect(410, 255, gatePosition, 10);
+        ctx.fillRect(410, 335, gatePosition, 10);
+        //console.log(gatePosition==180);
+        gateMark=requestAnimFrame(drawGateOpen);
+        if(gatePosition<=10)
+        {
+            if(gateMark) {
+                window.cancelAnimationFrame(gateMark);
+                gateMark = null;
+            }
+        }
+
+    }
+    function drawGateClose() {
+//        ctx.clearRect(410, 255, 180, 10);
+//        ctx.clearRect(410, 335, 180, 10);
+        gatePosition++;
+        ctx.fillStyle = "blue";
+        ctx.fillRect(410, 255, gatePosition, 10);
+        ctx.fillRect(410, 335, gatePosition, 10);
+         //console.log(gatePosition==180);
+        gateMark=requestAnimFrame(drawGateClose);
+        if(gatePosition>=180)
+        {
+            if(gateMark) {
+                window.cancelAnimationFrame(gateMark);
+                gateMark = null;
+            }
+        }
+
+    }
+    
+    function drawTrain(ctx, num) {            //draw train
+
+      //  var time = Date.now();
+if(num==0)
+{
+    ctx.clearRect(lPos, 270, 110, 60);
+    var train = document.getElementById("trainL");
+    // x = (time - startTime) / 10 % 1000;
+    lPos=(lPos+1)%1000;
+    ctx.drawImage(train,lPos, 270);
+
+}
+       else{
+    ctx.clearRect(rPos+30, 270, 140, 60);
+    var train = document.getElementById("trainR");
+    // x = (time - startTime) / 10 % 1000;
+    rPos=((rPos-1)+1000)%1000;
+    ctx.drawImage(train,rPos, 270);
+
+}
     }
 
 
-    document.getElementById("run").addEventListener("click", function() {
-        rate++;
-        draw();
-
-    }, false);
 
     document.getElementById("runLeft").addEventListener("click", function() {
         rate++;
         drawL();
-
+       // drawGate();
     }, false);
     document.getElementById("runRight").addEventListener("click", function() {
         rate++;
         drawR();
-
+       // drawGate();
     }, false);
 
     document.getElementById("stop").addEventListener("click", function() {
         console.log(rate);
         if( stopMark) {
-//            for (var x = 0; x < rate; x++) {
-
             window.cancelAnimationFrame(stopMark);
-//            }
             stopMark = null;
         }
-          rate=0;
+
 
     }, false);
-
-    function drawStatic(ctx, num) {
-
-      //  var time = Date.now();
-if(num==0)
-{
-    ctx.clearRect(lPos, 270, 140, 60);
-    var train = document.getElementById("trainL");
-    // x = (time - startTime) / 10 % 1000;
-    lPos=(lPos+1)%1000;
-    ctx.drawImage(train,lPos, 270);
-}
-       else{
-    ctx.clearRect(rPos, 270, 140, 60);
-    var train = document.getElementById("trainR");
-    // x = (time - startTime) / 10 % 1000;
-    rPos=((rPos-1)+1000)%1000;
-    ctx.drawImage(train,rPos, 270);
-}
-
-        //				elem.style.left = ((time - startTime) / 10 % 500) + "px";
-    }
-
-    function DrawShape(ctx) {
-
+   function DrawShape(ctx)
+    {
         ctx.fillStyle = "blue";
-        ctx.fillRect(410, 255, 180, 10);
-
-        ctx.fillRect(410, 335, 180, 10);
+        ctx.fillRect(410, 255, 10, 10);
+        ctx.fillRect(410, 335, 10, 10);
     }
-
     function DrawDline(ctx) {
 
         drawDashLine(ctx, 50, 50, 50, 550, 5);
