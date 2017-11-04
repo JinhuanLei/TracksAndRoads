@@ -155,7 +155,7 @@ if(num==0)
     ctx.clearRect(rPos, 270, 140, 60);
     var train = document.getElementById("trainR");
     // x = (time - startTime) / 10 % 1000;
-    rPos=(rPos-1)%1000;
+    rPos=((rPos-1)+1000)%1000;
     ctx.drawImage(train,rPos, 270);
 }
 
