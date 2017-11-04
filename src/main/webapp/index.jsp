@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <title>assignment4</title>
     <style type="text/css">
-        .circle {
+        /*.circle {
             width: 1000px;
             float: none;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
+        */
 
         .anim {
             position: absolute;
@@ -33,21 +34,26 @@
 </head>
 
 <body>
-<!--<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container">
+    <div class="row">
 
-</nav>-->
+        <div class="col-md-1">
+            <button type="button" id ="runLeft"class="btn btn-success" style="margin-top: 30px; ">RunLeft</button>
+            <button type="button" id ="runRight"class="btn btn-success" style="margin-top: 30px; ">RunRight</button>
+            <button type="button" id ="runBoth"class="btn btn-success" style="margin-top: 30px;  ">RunBothSide</button>
+            <button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>
+            <button type="button" id="stop" class="btn btn-warning" style="margin-top: 30px;">Stop</button>
+        </div>
+        <div class="col-md-10">
 
-<!--<div id="anim" class="anim">Click here to start animation</div>-->
-<div class="circle">
-    <br>
-    <br>
-    <br>
-    <br>
-    <canvas id="canvas1" width="1000" height="600"></canvas>
-    <img src="img/train.jpg" id="train" hidden="hidden" />
+            <canvas id="canvas1" width="1000" height="600"></canvas>
+            <img src="images/train.jpg" id="train" hidden="hidden" />
+            <img src="images/trainL.png" id="trainL" hidden="hidden" />
+            <img src="images/trainR.png" id="trainR" hidden="hidden" />
+        </div>
 
+    </div>
 </div>
-
 <script type="text/javascript">
     var n = 100;
     var elem = document.getElementById("anim");
@@ -78,28 +84,82 @@
     var ctx = canvas1.getContext("2d");
     var startTime = Date.now();
     var x = 0;
+    var stopMarkL=0;
+    var stopMarkR=0;
+    var lPos = 0;
+     var rPos =1000;
+     var rate=0;
     DrawSline(ctx);
     DrawDline(ctx);
     DrawShape(ctx);
     ctx.stroke();
 
-    window.onload = function draw() {
+    function drawL() {
 
-        requestAnimFrame(draw);
+        stopMark=requestAnimFrame(drawL);
 
-        drawStatic(ctx);
+        drawStatic(ctx,0);
+
+    }
+    function drawR() {
+
+        stopMark=requestAnimFrame(drawR);
+
+        drawStatic(ctx,1);
 
     }
 
-    function drawStatic(ctx) {
-        ctx.clearRect(0, 270, canvas1.width, 60);
 
-        var time = Date.now();
+    document.getElementById("run").addEventListener("click", function() {
+        rate++;
+        draw();
 
-        var train = document.getElementById("train");
-        x = (time - startTime) / 10 % 1000;
-        ctx.drawImage(train, x, 270);
-//				elem.style.left = ((time - startTime) / 10 % 500) + "px";
+    }, false);
+
+    document.getElementById("runLeft").addEventListener("click", function() {
+        rate++;
+        drawL();
+
+    }, false);
+    document.getElementById("runRight").addEventListener("click", function() {
+        rate++;
+        drawR();
+
+    }, false);
+
+    document.getElementById("stop").addEventListener("click", function() {
+        console.log(rate);
+        if( stopMark) {
+//            for (var x = 0; x < rate; x++) {
+
+            window.cancelAnimationFrame(stopMark);
+//            }
+            stopMark = null;
+        }
+          rate=0;
+
+    }, false);
+
+    function drawStatic(ctx, num) {
+
+      //  var time = Date.now();
+if(num==0)
+{
+    ctx.clearRect(lPos, 270, 140, 60);
+    var train = document.getElementById("trainL");
+    // x = (time - startTime) / 10 % 1000;
+    lPos=(lPos+1)%1000;
+    ctx.drawImage(train,lPos, 270);
+}
+       else{
+    ctx.clearRect(rPos, 270, 140, 60);
+    var train = document.getElementById("trainR");
+    // x = (time - startTime) / 10 % 1000;
+    rPos=(rPos-1)%1000;
+    ctx.drawImage(train,rPos, 270);
+}
+
+        //				elem.style.left = ((time - startTime) / 10 % 500) + "px";
     }
 
     function DrawShape(ctx) {
