@@ -105,16 +105,16 @@
         drawTrain(ctx,0);
         stopMark=requestAnimFrame(drawL);
         console.log(stopMark);
-        if((lPos%1000)==90)
+        if((lPos%1000)==(200-110))
         {
             drawGateClose();
             DrawLight();
             DrawYellow();
 
         }
-        if((lPos%1000)==240)
+        if((lPos%1000)==(350-110))
         {
-            drawGateClose();
+
             DrawLight();
             DrawRed();
 
@@ -138,21 +138,38 @@
     function drawR() {
         drawTrain(ctx,1);
         stopMark=requestAnimFrame(drawR);
-        if((rPos%1000)==770)
+        if((rPos%1000)==(800-30))
         {
             drawGateClose();
+            DrawLight();
+            DrawYellow();
+        }
+        if((rPos%1000)==(650-30))
+        {
+
+            DrawLight();
+            DrawRed();
         }
 
-        if((rPos%1000)==210)
+        if((rPos%1000)==(350-140))
         {
             drawGateOpen();
+            DrawLight();
+            DrawYellow();
+        }
+
+        if((rPos%1000)==(200-140))
+        {
+            DrawLight();
+            DrawGreen();
         }
     }
 
     function drawGateOpen() {
         ctx.clearRect(410, 255, 180, 10);
         ctx.clearRect(410, 335, 180, 10);
-        gatePosition--;
+        // gatePosition--;
+        gatePosition=gatePosition-2;
         ctx.fillStyle = "blue";
         ctx.fillRect(410, 255, gatePosition, 10);
         ctx.fillRect(410, 335, gatePosition, 10);
@@ -171,7 +188,7 @@
     function drawGateClose() {
 //        ctx.clearRect(410, 255, 180, 10);
 //        ctx.clearRect(410, 335, 180, 10);
-        gatePosition++;
+        gatePosition=2+gatePosition;
         ctx.fillStyle = "blue";
         ctx.fillRect(410, 255, gatePosition, 10);
         ctx.fillRect(410, 335, gatePosition, 10);
@@ -389,6 +406,8 @@ if(num==0)
 
         drawDashLine(ctx, 350, 50, 350, 550, 5);
         drawDashLine(ctx, 650, 50, 650, 550, 5);
+
+        ctx.clearRect(0, 270, 1000, 60);
     }
 
     function DrawSline(ctx) {
