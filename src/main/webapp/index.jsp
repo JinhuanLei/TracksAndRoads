@@ -44,9 +44,10 @@
             <%--<button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>--%>
             <button type="button" id="stop" class="btn btn-warning" style="margin-top: 30px;">Stop</button>
         </div>
-        <div class="col-md-10">
 
-            <canvas id="canvas1" width="1000" height="600"></canvas>
+        <div class="col-md-10" style="margin-top: 20px">
+
+            <canvas id="canvas1" width="1600" height="800"></canvas>
             <img src="images/train.jpg" id="train" hidden="hidden" />
             <img src="images/trainL.png" id="trainL" hidden="hidden" />
             <img src="images/trainR.png" id="trainR" hidden="hidden" />
@@ -88,7 +89,7 @@
     var stopMarkL=0;
     var stopMarkR=0;
     var lPos = 0;
-     var rPos =1000;
+     var rPos =1200;
      var rate=0;
      var gateMark=0;
      var gatePosition=0;
@@ -98,21 +99,21 @@
     DrawShape(ctx);
     DrawLight();
     DrawGreen();
-    ctx.stroke();
+    //ctx.stroke();
 
     function drawL() {
 
         drawTrain(ctx,0);
         stopMark=requestAnimFrame(drawL);
         console.log(stopMark);
-        if((lPos%1000)==(200-110))
+        if((lPos%1200)==(300-110))
         {
             drawGateClose();
             DrawLight();
             DrawYellow();
 
         }
-        if((lPos%1000)==(350-110))
+        if((lPos%1200)==(450-110))
         {
 
             DrawLight();
@@ -120,14 +121,14 @@
 
         }
 
-        if((lPos%1000)==650)
+        if((lPos%1200)==750)
         {
             drawGateOpen();
             DrawLight();
             DrawYellow();
         }
 
-        if((lPos%1000)==800)
+        if((lPos%1200)==900)
         {
             DrawLight();
             DrawGreen();
@@ -138,27 +139,27 @@
     function drawR() {
         drawTrain(ctx,1);
         stopMark=requestAnimFrame(drawR);
-        if((rPos%1000)==(800-30))
+        if((rPos%1200)==(900-30))
         {
             drawGateClose();
             DrawLight();
             DrawYellow();
         }
-        if((rPos%1000)==(650-30))
+        if((rPos%1200)==(750-30))
         {
 
             DrawLight();
             DrawRed();
         }
 
-        if((rPos%1000)==(350-140))
+        if((rPos%1200)==(450-140))
         {
             drawGateOpen();
             DrawLight();
             DrawYellow();
         }
 
-        if((rPos%1000)==(200-140))
+        if((rPos%1200)==(300-140))
         {
             DrawLight();
             DrawGreen();
@@ -166,13 +167,13 @@
     }
 
     function drawGateOpen() {
-        ctx.clearRect(410, 255, 180, 10);
-        ctx.clearRect(410, 335, 180, 10);
+        ctx.clearRect(510, 255, 180, 10);
+        ctx.clearRect(510, 335, 180, 10);
         // gatePosition--;
         gatePosition=gatePosition-2;
         ctx.fillStyle = "blue";
-        ctx.fillRect(410, 255, gatePosition, 10);
-        ctx.fillRect(410, 335, gatePosition, 10);
+        ctx.fillRect(510, 255, gatePosition, 10);
+        ctx.fillRect(510, 335, gatePosition, 10);
         //console.log(gatePosition==180);
         gateMark=requestAnimFrame(drawGateOpen);
         if(gatePosition<=10)
@@ -186,12 +187,12 @@
     }
 
     function drawGateClose() {
-//        ctx.clearRect(410, 255, 180, 10);
-//        ctx.clearRect(410, 335, 180, 10);
+//        ctx.clearRect(510, 255, 180, 10);
+//        ctx.clearRect(510, 335, 180, 10);
         gatePosition=2+gatePosition;
         ctx.fillStyle = "blue";
-        ctx.fillRect(410, 255, gatePosition, 10);
-        ctx.fillRect(410, 335, gatePosition, 10);
+        ctx.fillRect(510, 255, gatePosition, 10);
+        ctx.fillRect(510, 335, gatePosition, 10);
          //console.log(gatePosition==180);
         gateMark=requestAnimFrame(drawGateClose);
         if(gatePosition>=180)
@@ -208,17 +209,17 @@
         ctx.fillStyle = "#8cf524";
         ctx.beginPath();
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 240,15,15);
-        ctx.fillRect(390, 240,15,15);
-        // ctx.arc(390, 240, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(490, 240,15,15);
+        ctx.fillRect(490, 240,15,15);
+        // ctx.arc(490, 240, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
 
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 240,15,15);
-        ctx.fillRect(600, 240,15,15);
+        ctx.strokeRect(700, 240,15,15);
+        ctx.fillRect(700, 240,15,15);
         // ctx.arc(600, 240, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
@@ -226,17 +227,17 @@
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 370,15,15);
-        ctx.fillRect(390, 370,15,15);
-        // ctx.arc(390, 360, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(490, 370,15,15);
+        ctx.fillRect(490, 370,15,15);
+        // ctx.arc(490, 360, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
 
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 370,15,15);
-        ctx.fillRect(600, 370,15,15);
+        ctx.strokeRect(700, 370,15,15);
+        ctx.fillRect(700, 370,15,15);
         // ctx.arc(600, 360, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
     }
@@ -245,34 +246,34 @@
         ctx.fillStyle = "#f5f424";
         ctx.beginPath();
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 225,15,15);
-        ctx.fillRect(390, 225,15,15);
-        // ctx.arc(390, 240, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(490, 225,15,15);
+        ctx.fillRect(490, 225,15,15);
+        // ctx.arc(490, 240, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
 
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 225,15,15);
-        ctx.fillRect(600, 225,15,15);
+        ctx.strokeRect(700, 225,15,15);
+        ctx.fillRect(700, 225,15,15);
         // ctx.arc(600, 240, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 355,15,15);
-        ctx.fillRect(390, 355,15,15);
-        // ctx.arc(390, 360, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(490, 355,15,15);
+        ctx.fillRect(490, 355,15,15);
+        // ctx.arc(490, 360, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
 
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 355,15,15);
-        ctx.fillRect(600, 355,15,15);
+        ctx.strokeRect(700, 355,15,15);
+        ctx.fillRect(700, 355,15,15);
         // ctx.arc(600, 360, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
@@ -282,33 +283,33 @@
         ctx.fillStyle = "#f54b24";
         ctx.beginPath();
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 210,15,15);
-        ctx.fillRect(390, 210,15,15);
-        // ctx.arc(390, 240, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(490, 210,15,15);
+        ctx.fillRect(490, 210,15,15);
+        // ctx.arc(490, 240, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
 
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 210,15,15);
-        ctx.fillRect(600, 210,15,15);
-        // ctx.arc(600, 240, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(700, 210,15,15);
+        ctx.fillRect(700, 210,15,15);
+        // ctx.arc(700, 240, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 340,15,15);
-        ctx.fillRect(390, 340,15,15);
-        // ctx.arc(390, 360, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(490, 340,15,15);
+        ctx.fillRect(490, 340,15,15);
+        // ctx.arc(490, 360, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
 
         ctx.beginPath();
 
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 340,15,15);
-        ctx.fillRect(600, 340,15,15);
-        // ctx.arc(600, 360, 10, 0, 2 * Math.PI, true);
+        ctx.strokeRect(700, 340,15,15);
+        ctx.fillRect(700, 340,15,15);
+        // ctx.arc(700, 360, 10, 0, 2 * Math.PI, true);
         ctx.closePath();
 
     }
@@ -318,19 +319,19 @@
       //  var time = Date.now();
 if(num==0)
 {
-    ctx.clearRect(lPos, 271, 110, 59);
+    ctx.clearRect(lPos, 270, 110, 59);
     var train = document.getElementById("trainL");
     // x = (time - startTime) / 10 % 1000;
-    lPos=(lPos+1)%1000;
+    lPos=(lPos+1)%1200;
     ctx.drawImage(train,lPos, 270);
 
 }
        else{
-    ctx.clearRect(rPos, 271, 140, 59);
+    ctx.clearRect(rPos, 270, 140, 59);
     var train = document.getElementById("trainR");
     // x = (time - startTime) / 10 % 1000;
-    rPos=((rPos-1)+1000)%1000;
-    ctx.drawImage(train,rPos, 271);
+    rPos=((rPos-1)+1200)%1200;
+    ctx.drawImage(train,rPos, 270);
 
 }
     }
@@ -365,26 +366,26 @@ if(num==0)
         ctx.fillStyle = "gray";
         ctx.beginPath();
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 210,15,45);
-        ctx.fillRect(390, 210,15,45);
+        ctx.strokeRect(490, 210,15,45);
+        ctx.fillRect(490, 210,15,45);
         ctx.closePath();
 
         ctx.beginPath();
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 210,15,45);
-        ctx.fillRect(600, 210,15,45);
+        ctx.strokeRect(700, 210,15,45);
+        ctx.fillRect(700, 210,15,45);
         ctx.closePath();
 
         ctx.beginPath();
         ctx.strokeStyle="gray";
-        ctx.strokeRect(390, 340,15,45);
-        ctx.fillRect(390, 340,15,45);
+        ctx.strokeRect(490, 340,15,45);
+        ctx.fillRect(490, 340,15,45);
         ctx.closePath();
 
         ctx.beginPath();
         ctx.strokeStyle="gray";
-        ctx.strokeRect(600, 340,15,45);
-        ctx.fillRect(600, 340,15,45);
+        ctx.strokeRect(700, 340,15,45);
+        ctx.fillRect(700, 340,15,45);
         ctx.closePath();
 
 
@@ -393,57 +394,73 @@ if(num==0)
    function DrawShape(ctx)
     {
         ctx.fillStyle = "blue";
-        ctx.fillRect(410, 255, 10, 10);
-        ctx.fillRect(410, 335, 10, 10);
+        ctx.fillRect(510, 255, 10, 10);
+        ctx.fillRect(510, 335, 10, 10);
     }
     function DrawDline(ctx) {
 
-        drawDashLine(ctx, 50, 50, 50, 550, 5);
-        drawDashLine(ctx, 950, 50, 950, 550, 5);
+        drawDashLine(ctx, 150, 50, 150, 550, 5);
+        drawDashLine(ctx, 1050, 50, 1050, 550, 5);
 
-        drawDashLine(ctx, 200, 50, 200, 550, 5);
-        drawDashLine(ctx, 800, 50, 800, 550, 5);
+        drawDashLine(ctx, 300, 50, 300, 550, 5);
+        drawDashLine(ctx, 900, 50, 900, 550, 5);
 
-        drawDashLine(ctx, 350, 50, 350, 550, 5);
-        drawDashLine(ctx, 650, 50, 650, 550, 5);
+        drawDashLine(ctx, 450, 50, 450, 550, 5);
+        drawDashLine(ctx, 750, 50, 750, 550, 5);
 
-        ctx.clearRect(0, 270, 1000, 60);
+        ctx.clearRect(0, 270, 1200, 60);
     }
 
     function DrawSline(ctx) {
-        //设置线宽
-        ctx.lineWidth = 10;
-        //设置线的颜色
-        ctx.strokeStyle = "dodgerblue";
 
-        ctx.moveTo(0, 0);
-        ctx.strokeRect(0, 0, 1000, 600);
+
+//        ctx.lineWidth = 10;
+//        //设置线的颜色
+        ctx.strokeStyle = "dodgerblue";
+//        ctx.moveTo(0,0);
+//        ctx.strokeRect(0,0,1200,600);
+
 
         ctx.lineWidth = 2;
         //
         ctx.moveTo(0, 270);
 
-        ctx.lineTo(1000, 270);
+        ctx.lineTo(1200, 270);
         //vertical line
-        ctx.moveTo(420, 250);
+        ctx.moveTo(520, 250);
 
-        ctx.lineTo(420, 100);
+        ctx.lineTo(520, 100);
 
-        ctx.moveTo(580, 250);
+        ctx.moveTo(680, 250);
 
-        ctx.lineTo(580, 100);
+        ctx.lineTo(680, 100);
         //
         ctx.moveTo(0, 330);
 
-        ctx.lineTo(1000, 330);
+        ctx.lineTo(1200, 330);
         //vertical line
-        ctx.moveTo(420, 350);
+        ctx.moveTo(520, 350);
 
-        ctx.lineTo(420, 500);
+        ctx.lineTo(520, 500);
 
-        ctx.moveTo(580, 350);
+        ctx.moveTo(680, 350);
 
-        ctx.lineTo(580, 500);
+        ctx.lineTo(680, 500);
+
+        //xiexian
+        ctx.lineWidth = 1;
+        ctx.moveTo(90,60);
+        ctx.lineTo(0,180);
+
+        ctx.moveTo(150,270);
+        ctx.lineTo(0,135);
+
+        ctx.moveTo(1110,270);
+        ctx.lineTo(1200,180);
+
+        ctx.moveTo(1050,270);
+        ctx.lineTo(1200,135);
+
 
     }
 
