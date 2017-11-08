@@ -37,13 +37,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-1">
-            <button type="button" id ="runLeft"class="btn btn-success" style="margin-top: 30px; ">RunLeft</button>
-            <button type="button" id ="runRight"class="btn btn-success" style="margin-top: 30px; ">RunRight</button>
-            <button type="button" id ="runBoth"class="btn btn-success" style="margin-top: 30px;  ">RunBothSide</button>
-            <%--<button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>--%>
-            <button type="button" id="stop" class="btn btn-warning" style="margin-top: 30px;">Stop</button>
-        </div>
+
 
         <div class="col-md-10" style="margin-top: 20px">
 
@@ -52,7 +46,13 @@
             <img src="images/trainL.png" id="trainL" hidden="hidden" />
             <img src="images/trainR.png" id="trainR" hidden="hidden" />
         </div>
-
+        <div class="col-md-8" style="margin-top: -180px">
+            <button type="button" id ="runLeft"class="btn btn-success" style="margin-left: 20px">RunLeft</button>
+            <button type="button" id ="runRight"class="btn btn-success" style="margin-left: 20px">RunRight</button>
+            <button type="button" id ="runBoth"class="btn btn-success" style="margin-left: 20px">RunBothSide</button>
+            <%--<button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>--%>
+            <button type="button" id="stop" class="btn btn-warning" style="margin-left: 20px">Stop</button>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -390,7 +390,8 @@ if(num==0)
     ctx.drawImage(train,lPos, 270);
 
 }
-       else{
+       else
+           {
     ctx.clearRect(rPos, 270, 140, 59);
     var train = document.getElementById("trainR");
     // x = (time - startTime) / 10 % 1000;
@@ -548,7 +549,7 @@ if(num==0)
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" ;></script>;
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ; integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 
 </html>
