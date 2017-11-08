@@ -93,6 +93,9 @@
      var rate=0;
      var gateMark=0;
      var gatePosition=0;
+    var roadStatus=0;
+    var stopL=0;
+    var stopR=0;
 
     DrawSline(ctx);
     DrawDline(ctx);
@@ -105,12 +108,33 @@
 
         drawTrain(ctx,0);
         stopMark=requestAnimFrame(drawL);
-        console.log(stopMark);
+       // console.log(stopMark);
+        if((lPos%1200)==(150-110))
+        {
+            console.log(roadStatus);
+            if(roadStatus==1)
+            {
+                stopL=1;
+                if( stopMark) {
+                    window.cancelAnimationFrame(stopMark);
+                    stopMark = null;
+                }
+
+            }
+
+            else {
+                roadStatus=1;
+
+            }
+
+        }
+
         if((lPos%1200)==(300-110))
         {
-            drawGateClose();
-            DrawLight();
-            DrawYellow();
+
+                drawGateClose();
+                DrawLight();
+                DrawYellow();
 
         }
         if((lPos%1200)==(450-110))
@@ -133,12 +157,52 @@
             DrawLight();
             DrawGreen();
         }
+        if((lPos%1200)==(1050))
+        {
+            roadStatus=0;
+            if(stopR=1)
+            {
+                stopR=0;
+                roadStatus=1;//再一次执行的位置是在停止时的下一个点
+                drawR();
+
+            }
+        }
 
 
     }
     function drawR() {
         drawTrain(ctx,1);
         stopMark=requestAnimFrame(drawR);
+        if((rPos%1200)==(1050-30))
+        {
+            if(roadStatus==1)
+            {
+                if( stopMark) {
+                    window.cancelAnimationFrame(stopMark);
+                    stopMark = null;
+                }
+                stopR=1;
+            }
+            else {
+                roadStatus=1;
+            }
+
+        }
+        if((rPos%1200)==(150-30))
+        {
+            roadStatus=0;
+            if(stopL=1)
+            {
+                stopL=0;
+                roadStatus=1;
+                drawL();
+
+            }
+
+
+        }
+
         if((rPos%1200)==(900-30))
         {
             drawGateClose();
@@ -449,17 +513,19 @@ if(num==0)
 
         //xiexian
         ctx.lineWidth = 1;
-        ctx.moveTo(90,60);
-        ctx.lineTo(0,180);
+        ctx.moveTo(0,120);
+        ctx.lineTo(150,270);
 
-        ctx.moveTo(150,270);
-        ctx.lineTo(0,135);
-
-        ctx.moveTo(1110,270);
-        ctx.lineTo(1200,180);
+        ctx.moveTo(0,120+60*Math.sqrt(2));
+        ctx.lineTo(150-60*Math.sqrt(2),270);
 
         ctx.moveTo(1050,270);
-        ctx.lineTo(1200,135);
+        ctx.lineTo(1200,120);
+
+        ctx.moveTo(1050+60*Math.sqrt(2),270);
+        ctx.lineTo(1200,120+60*Math.sqrt(2));
+
+
 
 
     }
@@ -482,7 +548,7 @@ if(num==0)
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" ;></script>;
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ;; integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ; integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 
 </html>
