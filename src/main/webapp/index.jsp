@@ -29,7 +29,9 @@
         #canvas1 {}
     </style>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" ;; integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/css/bootstrap-slider.css">
+
 
 </head>
 
@@ -46,15 +48,22 @@
             <img src="images/trainL.png" id="trainL" hidden="hidden" />
             <img src="images/trainR.png" id="trainR" hidden="hidden" />
         </div>
-        <div class="col-md-8" style="margin-top: -180px">
+        <div class="col-md-6" style="margin-top: -180px">
             <button type="button" id ="runLeft"class="btn btn-success" style="margin-left: 20px">RunLeft</button>
             <button type="button" id ="runRight"class="btn btn-success" style="margin-left: 20px">RunRight</button>
             <button type="button" id ="runBoth"class="btn btn-success" style="margin-left: 20px">RunBothSide</button>
             <%--<button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>--%>
             <button type="button" id="stop" class="btn btn-warning" style="margin-left: 20px">Stop</button>
-        </div>
+
     </div>
+        <div class="col-md-6" style="margin-top: -180px ;margin-left: 500px">
+
+            <input id="ex13" type="text"data-slider-ticks="[1, 2, 3, 4, 5,6]" data-slider-ticks-snap-bounds="10" data-slider-value="3" data-slider-ticks-labels='["0.1X", "0.5X", "1X", "2X", "5X","10X"]'/>
+        </div>
+
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.js" ></script>;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript">
     var n = 100;
     var elem = document.getElementById("anim");
@@ -67,7 +76,7 @@
             window.oRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
             function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
-                window.setTimeout(callback, 1000 / 60);
+                window.setTimeout(callback, 1000 /60);
             };
     })();
 
@@ -90,12 +99,18 @@
     var stopMarkR=0;
     var lPos = 0;
      var rPos =1200;
-     var rate=0;
+     var rate=1;
      var gateMark=0;
      var gatePosition=0;
     var roadStatus=0;
     var stopL=0;
     var stopR=0;
+
+//    var fps = 60;
+//    var now;
+//    var then = window.performance.now();
+//    var interval = 1000/fps;
+//    var delta;
 
     DrawSline(ctx);
     DrawDline(ctx);
@@ -105,76 +120,100 @@
     //ctx.stroke();
 
     function drawL() {
-
+       //console.log(rate);
         drawTrain(ctx,0);
         stopMark=requestAnimFrame(drawL);
        // console.log(stopMark);
-        if((lPos%1200)==(150-110))
-        {
-            console.log(roadStatus);
-            if(roadStatus==1)
-            {
-                stopL=1;
-                if( stopMark) {
-                    window.cancelAnimationFrame(stopMark);
-                    stopMark = null;
-                }
+//        now = window.performance.now();
+//        delta = now - then;
+//
+//        if (delta > interval) {
+//            then = now - (delta % interval);
+            controlLeftDirection();
 
-            }
-
-            else {
-                roadStatus=1;
-
-            }
-
-        }
-
-        if((lPos%1200)==(300-110))
-        {
-
-                drawGateClose();
-                DrawLight();
-                DrawYellow();
-
-        }
-        if((lPos%1200)==(450-110))
-        {
-
-            DrawLight();
-            DrawRed();
-
-        }
-
-        if((lPos%1200)==750)
-        {
-            drawGateOpen();
-            DrawLight();
-            DrawYellow();
-        }
-
-        if((lPos%1200)==900)
-        {
-            DrawLight();
-            DrawGreen();
-        }
-        if((lPos%1200)==(1050))
-        {
-            roadStatus=0;
-            if(stopR=1)
-            {
-                stopR=0;
-                roadStatus=1;//再一次执行的位置是在停止时的下一个点
-                drawR();
-
-            }
-        }
-
+//        }
 
     }
+    var lstate1=0,lstate2=0,lstate3=0,lstate4=0,lstate5=0,lstate6=0;
+   function controlLeftDirection() {
+
+
+       if((lPos%1200)>=(150-110)&&lstate1==0)
+       {
+           console.log(roadStatus);
+           if(roadStatus>=1)
+           {
+               stopL=1;
+               if( stopMark) {
+                   window.cancelAnimationFrame(stopMark);
+                   stopMark = null;
+               }
+
+           }
+
+           else {
+               roadStatus=1;
+
+           }
+           lstate1=1;
+       }
+
+       if((lPos%1200)>=(300-110)&&lstate2==0)
+       {
+
+           drawGateClose();
+           DrawLight();
+           DrawYellow();
+           lstate2=1;
+       }
+       if((lPos%1200)>=(450-110)&&lstate3==0)
+       {
+
+           DrawLight();
+           DrawRed();
+           lstate3=1;
+       }
+
+       if((lPos%1200)>=750&&lstate4==0)
+       {
+           drawGateOpen();
+           DrawLight();
+           DrawYellow();
+           lstate4=1;
+       }
+
+       if((lPos%1200)>=900&&lstate5==0)
+       {
+           DrawLight();
+           DrawGreen();
+           lstate5=1;
+       }
+       if((lPos%1200)>=(1050)&&lstate6==0)
+       {
+           roadStatus=0;
+           if(stopR==1)
+           {
+               stopR=0;
+               roadStatus=1;//再一次执行的位置是在停止时的下一个点
+               drawR();
+
+           }
+           lstate6=1;
+       }
+   }
+
     function drawR() {
         drawTrain(ctx,1);
         stopMark=requestAnimFrame(drawR);
-        if((rPos%1200)==(1050-30))
+
+        controlRightDirection();
+
+    }
+    var rstate1=0,rstate2=0,rstate3=0,rstate4=0,rstate5=0,rstate6=0;
+    function controlRightDirection() {
+
+
+        if((rPos%1200)<=(1050-30)&&rstate1==0)
         {
             if(roadStatus==1)
             {
@@ -187,12 +226,12 @@
             else {
                 roadStatus=1;
             }
-
+            rstate1=1;
         }
-        if((rPos%1200)==(150-30))
+        if((rPos%1200)<=(150-30)&&rstate2==0)
         {
             roadStatus=0;
-            if(stopL=1)
+            if(stopL==1)
             {
                 stopL=0;
                 roadStatus=1;
@@ -200,41 +239,44 @@
 
             }
 
-
+            rstate2=1;
         }
 
-        if((rPos%1200)==(900-30))
+        if((rPos%1200)<=(900-30)&&rstate3==0)
         {
             drawGateClose();
             DrawLight();
             DrawYellow();
+            rstate3=1;
         }
-        if((rPos%1200)==(750-30))
+        if((rPos%1200)<=(750-30)&&rstate4==0)
         {
 
             DrawLight();
             DrawRed();
+            rstate4=1;
         }
 
-        if((rPos%1200)==(450-140))
+        if((rPos%1200)<=(450-140)&&rstate5==0)
         {
             drawGateOpen();
             DrawLight();
             DrawYellow();
+            rstate5=1;
         }
 
-        if((rPos%1200)==(300-140))
+        if((rPos%1200)<=(300-140)&&rstate6==0)
         {
             DrawLight();
             DrawGreen();
+            rstate6=1;
         }
     }
-
     function drawGateOpen() {
         ctx.clearRect(510, 255, 180, 10);
         ctx.clearRect(510, 335, 180, 10);
         // gatePosition--;
-        gatePosition=gatePosition-2;
+        gatePosition=gatePosition-rate;
         ctx.fillStyle = "blue";
         ctx.fillRect(510, 255, gatePosition, 10);
         ctx.fillRect(510, 335, gatePosition, 10);
@@ -253,7 +295,7 @@
     function drawGateClose() {
 //        ctx.clearRect(510, 255, 180, 10);
 //        ctx.clearRect(510, 335, 180, 10);
-        gatePosition=2+gatePosition;
+        gatePosition=rate+gatePosition;
         ctx.fillStyle = "blue";
         ctx.fillRect(510, 255, gatePosition, 10);
         ctx.fillRect(510, 335, gatePosition, 10);
@@ -378,6 +420,8 @@
 
     }
 
+    var changflagL=0;
+    var changflagR=0;
     function drawTrain(ctx, num) {            //draw train
 
       //  var time = Date.now();
@@ -386,16 +430,36 @@ if(num==0)
     ctx.clearRect(lPos, 270, 110, 59);
     var train = document.getElementById("trainL");
     // x = (time - startTime) / 10 % 1000;
-    lPos=(lPos+1)%1200;
+    changflagL=lPos;
+    lPos=(lPos+rate)%1200;
+   if(lPos<changflagL)
+   {
+       lstate1=0;
+       lstate2=0;
+       lstate3=0;
+       lstate4=0;
+       lstate5=0;
+       lstate6=0;
+   }
     ctx.drawImage(train,lPos, 270);
 
 }
-       else
+else
            {
     ctx.clearRect(rPos, 270, 140, 59);
     var train = document.getElementById("trainR");
     // x = (time - startTime) / 10 % 1000;
-    rPos=((rPos-1)+1200)%1200;
+               changflagR=rPos;
+    rPos=((rPos-rate)+1200)%1200;
+               if(rPos>changflagL)
+               {
+                   rstate1=0;
+                   rstate2=0;
+                   rstate3=0;
+                   rstate4=0;
+                   rstate5=0;
+                   rstate6=0;
+               }
     ctx.drawImage(train,rPos, 270);
 
 }
@@ -404,27 +468,58 @@ if(num==0)
 
 
     document.getElementById("runLeft").addEventListener("click", function() {
-        rate++;
+      //  rate++;
         drawL();
        // drawGate();
     }, false);
     document.getElementById("runRight").addEventListener("click", function() {
-        rate++;
+       // rate++;
         drawR();
        // drawGate();
     }, false);
 
     document.getElementById("stop").addEventListener("click", function() {
-        console.log(rate);
+       // console.log(rate);
         if( stopMark) {
             window.cancelAnimationFrame(stopMark);
             stopMark = null;
         }
-
-
     }, false);
 
 
+
+    var slider = new Slider("#ex13", {
+        ticks:[1, 2, 3, 4, 5,6],
+        ticks_labels: ['0.1X', '0.5X', '1X', '2X', '5X','10X'],
+        ticks_positions: [0, 20, 40, 60, 80, 100],
+        ticks_snap_bounds: 10
+    });
+    slider.on("slide", function(sliderValue) {
+ switch(sliderValue)
+ {
+
+     case 1:
+         rate=0.1;
+         break;
+
+     case 2:
+         rate=0.5;
+         break;
+     case 3:
+         rate=1;
+         break;
+     case 4:
+         rate=2;
+         break;
+     case 5:
+         rate=5;
+         break;
+     case 6:
+         rate=10;
+         break;
+ }
+        console.log(rate);
+    });
 
     function DrawLight()
     {
@@ -548,7 +643,7 @@ if(num==0)
         ctx.stroke();
     }
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" ;></script>;
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 
