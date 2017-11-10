@@ -5,15 +5,13 @@
     <meta charset="UTF-8">
     <title>assignment4</title>
     <style type="text/css">
-        /*.circle {
-            width: 1000px;
-            float: none;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        */
 
+        body {
+            background: url(images/background1.JPG),
+
+
+
+        }
         .anim {
             position: absolute;
             left: 0px;
@@ -26,7 +24,13 @@
             padding: 1em;
         }
 
-        #canvas1 {}
+      .mysiv{
+          background:
+          url("images/tracks.png") 180px 290px no-repeat;
+          background-size:1200px 60px;
+
+      }
+
     </style>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -36,6 +40,7 @@
 </head>
 
 <body>
+<div class="mysiv">
 <div class="container">
     <div class="row">
 
@@ -61,7 +66,7 @@
             <input id="ex13" type="text"data-slider-ticks="[1, 2, 3, 4, 5,6]" data-slider-ticks-snap-bounds="10" data-slider-value="3" data-slider-ticks-labels='["0.1X", "0.5X", "1X", "2X", "5X","10X"]'/>
         </div>
 
-</div>
+</div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.js" ></script>;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript">
