@@ -25,11 +25,28 @@
         }
 
       .mysiv{
-          background:
-          url("images/tracks.png") 180px 290px no-repeat;
-          background-size:1200px 60px;
+           background:
+                   url("images/tracks.png") 150px 290px no-repeat;
+           background-size:1200px 60px;
 
-      }
+
+
+       }
+
+        .housediv{
+            background:
+                    url("images/house1.png") 100px 300px no-repeat,
+               url("images/house1.png") 100px -30px no-repeat;
+
+            background-size:500px 400px;
+
+            /*background:*/
+                    /*url("images/houseL.jpg") 610px 50px no-repeat;*/
+            /*background-size:120px 120px;*/
+
+
+
+        }
 
     </style>
     <!-- Latest compiled and minified CSS -->
@@ -41,6 +58,7 @@
 
 <body>
 <div class="mysiv">
+    <div class="housediv">
 <div class="container">
     <div class="row">
 
@@ -66,7 +84,7 @@
             <input id="ex13" type="text"data-slider-ticks="[1, 2, 3, 4, 5,6]" data-slider-ticks-snap-bounds="10" data-slider-value="3" data-slider-ticks-labels='["0.1X", "0.5X", "1X", "2X", "5X","10X"]'/>
         </div>
 
-</div></div>
+</div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.js" ></script>;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript">
@@ -222,11 +240,12 @@
         {
             if(roadStatus==1)
             {
-                if( stopMark) {
+                stopR=1;
+                if(stopMark) {
                     window.cancelAnimationFrame(stopMark);
                     stopMark = null;
                 }
-                stopR=1;
+
             }
             else {
                 roadStatus=1;
@@ -456,7 +475,7 @@ else
     // x = (time - startTime) / 10 % 1000;
                changflagR=rPos;
     rPos=((rPos-rate)+1200)%1200;
-               if(rPos>changflagL)
+               if(rPos>changflagR)
                {
                    rstate1=0;
                    rstate2=0;
@@ -489,6 +508,12 @@ else
             window.cancelAnimationFrame(stopMark);
             stopMark = null;
         }
+    }, false);
+
+    document.getElementById("runBoth").addEventListener("click", function() {
+        // console.log(rate);
+        drawL();
+        drawR();
     }, false);
 
 
@@ -613,22 +638,18 @@ else
         ctx.lineTo(680, 500);
 
         //xiexian
-        ctx.lineWidth = 1;
-        ctx.moveTo(0,120);
-        ctx.lineTo(150,270);
-
-        ctx.moveTo(0,120+60*Math.sqrt(2));
-        ctx.lineTo(150-60*Math.sqrt(2),270);
-
-        ctx.moveTo(1050,270);
-        ctx.lineTo(1200,120);
-
-        ctx.moveTo(1050+60*Math.sqrt(2),270);
-        ctx.lineTo(1200,120+60*Math.sqrt(2));
-
-
-
-
+//        ctx.lineWidth = 1;
+//        ctx.moveTo(0,120);
+//        ctx.lineTo(150,270);
+//
+//        ctx.moveTo(0,120+60*Math.sqrt(2));
+//        ctx.lineTo(150-60*Math.sqrt(2),270);
+//
+//        ctx.moveTo(1050,270);
+//        ctx.lineTo(1200,120);
+//
+//        ctx.moveTo(1050+60*Math.sqrt(2),270);
+//        ctx.lineTo(1200,120+60*Math.sqrt(2));
     }
 
     function drawDashLine(ctx, x1, y1, x2, y2, dashLength) {
