@@ -26,7 +26,7 @@
 
       .mysiv{
            background:
-                   url("images/tracks.png") 150px 310px no-repeat;
+            url("images/tracks.png") 150px 310px no-repeat;
            background-size:1200px 60px;
 
 
@@ -36,22 +36,20 @@
         .housediv{
             background:
                     url("images/house1.png") 100px 300px no-repeat,
-                   url("images/house1.png") 100px -30px no-repeat,
+                    url("images/house1.png") 100px -30px no-repeat,
                     url("images/house1R.png") 900px 300px no-repeat,
-                  url("images/house1R.png") 900px -30px no-repeat;
+                    url("images/house1R.png") 900px -30px no-repeat;
             background-size:500px 400px;
 
 
 
         }
-        .roaddiv{
+        .roaddiv
+        {
             background:
-                    url("images/road.jpg") 710px 380px no-repeat,
-                    url("images/road.jpg") 710px 100px no-repeat;
+                    url("images/road.jpg") 668px 380px no-repeat,
+                    url("images/road.jpg") 668px 100px no-repeat;
             background-size:150px 200px;
-
-
-
         }
 
     </style>
@@ -79,7 +77,8 @@
             <canvas id="canvas1" width="1600" height="800"></canvas>
             <img src="images/train.jpg" id="train" hidden="hidden" />
             <img src="images/trainL.png" id="trainL" hidden="hidden" />
-            <img src="images/trainR.png" id="trainR" hidden="hidden" />
+            <img src="images/trainR.png" id="trainR" hidden="hidden"  />
+            <img src="images/carU.png" id="carU" hidden="hidden" width="20px" height="50px"/>
         </div>
         <div class="col-md-12" style="margin-top: -235px">
             <span class="label label-default" style="margin-left: 140px">L0</span>
@@ -92,9 +91,9 @@
 
         <div class="col-md-6" style="margin-top: -190px">
 
-            <button type="button" id ="runLeft"class="btn btn-success" style="margin-left: 20px">RunLeft</button>
-            <button type="button" id ="runRight"class="btn btn-success" style="margin-left: 20px">RunRight</button>
-            <button type="button" id ="runBoth"class="btn btn-success" style="margin-left: 20px">RunBothSide</button>
+            <button type="button" id ="runLeft" class="btn btn-success" style="margin-left: 20px">RunLeft</button>
+            <button type="button" id ="runRight" class="btn btn-success" style="margin-left: 20px">RunRight</button>
+            <button type="button" id ="runBoth" class="btn btn-success" style="margin-left: 20px">RunBothSide</button>
             <%--<button type="button" id ="run"class="btn btn-success" style="margin-top: 30px; ">Run</button>--%>
             <button type="button" id="stop" class="btn btn-warning" style="margin-left: 20px">Stop</button>
 
@@ -161,7 +160,8 @@
     DrawLight();
     DrawGreen();
     //ctx.stroke();
-
+    CarUpAnimation();
+    CarDownAnimation();
     function drawL() {
        //console.log(rate);
         drawTrain(ctx,0);
@@ -173,11 +173,62 @@
 //        if (delta > interval) {
 //            then = now - (delta % interval);
             controlLeftDirection();
-
 //        }
 
     }
+    var carMark;
+    var carflag0=0;
+    var carflag1=0;
+    function CarUpAnimation(){
+
+        drawCar(ctx,0);
+        carMark=requestAnimFrame(CarUpAnimation);
+        if(carstatus==1)
+        {
+            if(uPos>=220&&carflag0==0)
+            {
+   if(uPos>=250)
+   {
+    return;
+   }
+
+                if( carMark) {
+                    window.cancelAnimationFrame(carMark);
+                    carMark = null;
+                }
+                carflag0=1;
+            }
+
+        }
+
+
+    }
+
+    function CarDownAnimation(){
+
+        drawCar(ctx,1);
+        carMark=requestAnimFrame(CarDownAnimation);
+        if(carstatus==1)
+        {
+
+            if(dPos<=345&&carflag1==0)
+            {
+                if(dPos<=330)
+                {
+                    return;
+                }
+                if(carMark) {
+                    window.cancelAnimationFrame(carMark);
+                    carMark = null;
+                }
+            carflag1=1;
+            }
+        }
+
+
+    }
     var lstate1=0,lstate2=0,lstate3=0,lstate4=0,lstate5=0,lstate6=0;
+    var carstatus=0;
    function controlLeftDirection() {
 
 
@@ -208,6 +259,7 @@
            DrawLight();
            DrawYellow();
            lstate2=1;
+           carstatus=1;
        }
        if((lPos%1200)>=(450-110)&&lstate3==0)
        {
@@ -215,6 +267,7 @@
            DrawLight();
            DrawRed();
            lstate3=1;
+
        }
 
        if((lPos%1200)>=750&&lstate4==0)
@@ -230,6 +283,9 @@
            DrawLight();
            DrawGreen();
            lstate5=1;
+           carstatus=0;
+           CarUpAnimation();
+           CarDownAnimation();
        }
        if((lPos%1200)>=(1050)&&lstate6==0)
        {
@@ -292,6 +348,7 @@
             DrawLight();
             DrawYellow();
             rstate3=1;
+            carstatus=1;
         }
         if((rPos%1200)<=(750-30)&&rstate4==0)
         {
@@ -299,6 +356,7 @@
             DrawLight();
             DrawRed();
             rstate4=1;
+
         }
 
         if((rPos%1200)<=(450-140)&&rstate5==0)
@@ -314,8 +372,12 @@
             DrawLight();
             DrawGreen();
             rstate6=1;
+            carstatus=0;
+            CarUpAnimation();
+            CarDownAnimation();
         }
     }
+    var doorStatus=0;
     function drawGateOpen() {
         ctx.clearRect(510, 255, 180, 10);
         ctx.clearRect(510, 335, 180, 10);
@@ -332,8 +394,8 @@
                 window.cancelAnimationFrame(gateMark);
                 gateMark = null;
             }
+            doorStatus=0;
         }
-
     }
 
     function drawGateClose() {
@@ -351,8 +413,8 @@
                 window.cancelAnimationFrame(gateMark);
                 gateMark = null;
             }
+            doorStatus=1;
         }
-
     }
 
     function DrawGreen() {
@@ -463,7 +525,42 @@
         ctx.closePath();
 
     }
+    var uPos=0;
+    var dPos=500;
+    var changflagU=0;
+    var changflagD=0;
+    function drawCar(ctx, num) {            //draw car
+        if(num==0)
+        {
+            ctx.clearRect(530, uPos, 50, 34);
+            var car=document.getElementById("carU");
+            changflagU=uPos;
+            uPos=(uPos+rate)%500;
+            if(uPos<changflagU)
+            {
+                carflag0=0;
+            }
+            ctx.drawImage(car,530, uPos);
+        }
 
+        if(num==1)
+        {
+            ctx.clearRect(610, dPos, 50, 34);
+            var car=document.getElementById("carU");
+            changflagD=dPos;
+
+            dPos=(dPos-rate+500)%500;
+            if(dPos>changflagD)
+            {
+                carflag1=0;
+            }
+
+            ctx.drawImage(car,610, dPos);
+        }
+
+
+
+    }
     var changflagL=0;
     var changflagR=0;
     function drawTrain(ctx, num) {            //draw train
@@ -514,6 +611,7 @@ else
     document.getElementById("runLeft").addEventListener("click", function() {
       //  rate++;
         drawL();
+
        // drawGate();
     }, false);
     document.getElementById("runRight").addEventListener("click", function() {
@@ -639,11 +737,11 @@ else
         //vertical line
         ctx.moveTo(520, 250);
 
-        ctx.lineTo(520, 100);
+        ctx.lineTo(520, 50);
 
         ctx.moveTo(680, 250);
 
-        ctx.lineTo(680, 100);
+        ctx.lineTo(680, 50);
         //
         ctx.moveTo(0, 330);
 
@@ -651,11 +749,11 @@ else
         //vertical line
         ctx.moveTo(520, 350);
 
-        ctx.lineTo(520, 500);
+        ctx.lineTo(520, 550);
 
         ctx.moveTo(680, 350);
 
-        ctx.lineTo(680, 500);
+        ctx.lineTo(680, 550);
 
         //xiexian
 //        ctx.lineWidth = 1;
