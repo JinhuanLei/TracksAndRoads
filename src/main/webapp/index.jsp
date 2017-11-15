@@ -7,7 +7,7 @@
     <style type="text/css">
 
         body {
-            background: url(images/background1.JPG),
+            background: url(images/background1.JPG);
 
 
 
@@ -26,7 +26,7 @@
 
       .mysiv{
            background:
-                   url("images/tracks.png") 150px 290px no-repeat;
+                   url("images/tracks.png") 150px 310px no-repeat;
            background-size:1200px 60px;
 
 
@@ -36,13 +36,19 @@
         .housediv{
             background:
                     url("images/house1.png") 100px 300px no-repeat,
-               url("images/house1.png") 100px -30px no-repeat;
-
+                   url("images/house1.png") 100px -30px no-repeat,
+                    url("images/house1R.png") 900px 300px no-repeat,
+                  url("images/house1R.png") 900px -30px no-repeat;
             background-size:500px 400px;
 
-            /*background:*/
-                    /*url("images/houseL.jpg") 610px 50px no-repeat;*/
-            /*background-size:120px 120px;*/
+
+
+        }
+        .roaddiv{
+            background:
+                    url("images/road.jpg") 710px 380px no-repeat,
+                    url("images/road.jpg") 710px 100px no-repeat;
+            background-size:150px 200px;
 
 
 
@@ -59,11 +65,15 @@
 <body>
 <div class="mysiv">
     <div class="housediv">
+        <div class="roaddiv">
 <div class="container">
     <div class="row">
-
-
-
+        <span class="label label-default" style="margin-left: 160px">L0</span>
+        <span class="label label-default" style="margin-left: 120px">L1</span>
+        <span class="label label-default" style="margin-left: 120px">L2</span>
+        <span class="label label-default" style="margin-left: 270px">L2</span>
+        <span class="label label-default" style="margin-left: 120px">L1</span>
+        <span class="label label-default" style="margin-left: 120px">L0</span>
         <div class="col-md-10" style="margin-top: 20px">
 
             <canvas id="canvas1" width="1600" height="800"></canvas>
@@ -71,7 +81,17 @@
             <img src="images/trainL.png" id="trainL" hidden="hidden" />
             <img src="images/trainR.png" id="trainR" hidden="hidden" />
         </div>
-        <div class="col-md-6" style="margin-top: -180px">
+        <div class="col-md-12" style="margin-top: -235px">
+            <span class="label label-default" style="margin-left: 140px">L0</span>
+            <span class="label label-default" style="margin-left: 120px">L1</span>
+            <span class="label label-default" style="margin-left: 120px">L2</span>
+            <span class="label label-default" style="margin-left: 270px">L2</span>
+            <span class="label label-default" style="margin-left: 120px">L1</span>
+            <span class="label label-default" style="margin-left: 120px">L0</span>
+        </div>
+
+        <div class="col-md-6" style="margin-top: -190px">
+
             <button type="button" id ="runLeft"class="btn btn-success" style="margin-left: 20px">RunLeft</button>
             <button type="button" id ="runRight"class="btn btn-success" style="margin-left: 20px">RunRight</button>
             <button type="button" id ="runBoth"class="btn btn-success" style="margin-left: 20px">RunBothSide</button>
@@ -79,12 +99,12 @@
             <button type="button" id="stop" class="btn btn-warning" style="margin-left: 20px">Stop</button>
 
     </div>
-        <div class="col-md-6" style="margin-top: -180px ;margin-left: 500px">
+        <div class="col-md-6" style="margin-top: -190px ;margin-left: 500px">
 
             <input id="ex13" type="text"data-slider-ticks="[1, 2, 3, 4, 5,6]" data-slider-ticks-snap-bounds="10" data-slider-value="3" data-slider-ticks-labels='["0.1X", "0.5X", "1X", "2X", "5X","10X"]'/>
         </div>
 
-</div></div></div>
+</div></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.js" ></script>;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript">
