@@ -12,17 +12,7 @@
 
 
         }
-        .anim {
-            position: absolute;
-            left: 0px;
-            width: 150px;
-            height: 150px;
-            background: blue;
-            font-size: larger;
-            color: white;
-            border-radius: 10px;
-            padding: 1em;
-        }
+
 
       .mysiv{
            background:
@@ -98,12 +88,13 @@
             <button type="button" id="stop" class="btn btn-warning" style="margin-left: 20px">Stop</button>
 
     </div>
-        <div class="col-md-6" style="margin-top: -190px ;margin-left: 500px">
-
-            <input id="ex13" type="text"data-slider-ticks="[1, 2, 3, 4, 5,6]" data-slider-ticks-snap-bounds="10" data-slider-value="3" data-slider-ticks-labels='["0.1X", "0.5X", "1X", "2X", "5X","10X"]'/>
+        <div class="col-md-6" style="margin-top: -190px ;margin-left: 480px">
+            <span class="label label-info">Speed</span>
+      &nbsp;&nbsp;
+            <input id="ex13" style="margin-left: 30px" type="text"data-slider-ticks="[1, 2, 3, 4, 5,6]" data-slider-ticks-snap-bounds="10" data-slider-value="3" data-slider-ticks-labels='["0.1X", "0.5X", "1X", "2X", "5X","10X"]'/>
         </div>
 
-</div></div></div></div>
+    </div></div></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.js" ></script>;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript">
@@ -399,8 +390,8 @@
     }
 
     function drawGateClose() {
-//        ctx.clearRect(510, 255, 180, 10);
-//        ctx.clearRect(510, 335, 180, 10);
+        ctx.clearRect(510, 255, 180, 10);
+        ctx.clearRect(510, 335, 180, 10);
         gatePosition=rate+gatePosition;
         ctx.fillStyle = "blue";
         ctx.fillRect(510, 255, gatePosition, 10);
